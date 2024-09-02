@@ -3,6 +3,7 @@ package com.trinadh.AsyncDemo.service;
 import com.trinadh.AsyncDemo.dto.Order;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -29,26 +30,32 @@ public class OrderFulfillmentService {
         return order;
     }
 
+    @Async("orderServiceTaskExecutor")
     public void notifyUser(Order order) throws InterruptedException{
         Thread.sleep(5000L);
         log.info("Notified to the user: "+Thread.currentThread().getName());
     }
 
+
+    @Async("orderServiceTaskExecutor")
     public void assignVendor(Order order) throws InterruptedException{
         Thread.sleep(6000L);
         log.info("Assign order to the vendor: " + Thread.currentThread().getName());
     }
 
+    @Async("orderServiceTaskExecutor")
     public void packaging(Order order) throws InterruptedException{
         Thread.sleep(15000L);
         log.info("Your order packaging completed: " + Thread.currentThread().getName());
     }
 
+    @Async("orderServiceTaskExecutor")
     public void assignDeliveryPartner(Order order) throws  InterruptedException{
         Thread.sleep(11000L);
         log.info("Delivery partner has been assigned : " + Thread.currentThread().getName());
     }
 
+    @Async("orderServiceTaskExecutor")
     public void dispatchTheOrder(Order order) throws  InterruptedException{
         Thread.sleep(21000L);
         log.info("your order has been dispatched... : "+ Thread.currentThread().getName());
